@@ -4,6 +4,7 @@
 	import { formSchema, type FormSchema } from './schema';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zod4Client } from 'sveltekit-superforms/adapters';
+	import { Button } from '$lib/components/ui/button/index.js';
 
 	let { data }: { data: { form: SuperValidated<Infer<FormSchema>> } } = $props();
 
@@ -24,5 +25,8 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button>Submit</Form.Button>
+	<div class="flex justify-end space-x-2">
+		<Button variant="outline" href="/tags">Back</Button>
+		<Form.Button>Submit</Form.Button>
+	</div>
 </form>
