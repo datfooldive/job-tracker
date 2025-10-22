@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { IconLogout, IconMoon, IconSun } from '@tabler/icons-svelte';
@@ -8,10 +9,21 @@
 	import { toggleMode } from 'mode-watcher';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { page } from '$app/state';
+	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
 
 	const { session, user } = $derived(page.data);
 
 	const sidebar = Sidebar.useSidebar();
+
+	const pathnames = $derived(page.url.pathname.split('/').filter(Boolean));
+
+	const breadcrumbs = $derived(
+		pathnames.map((segment, i) => ({
+			name: segment.charAt(0).toUpperCase() + segment.slice(1),
+			href: '/' + pathnames.slice(0, i + 1).join('/'),
+			isLast: i === pathnames.length - 1
+		}))
+	);
 </script>
 
 <header
@@ -19,6 +31,29 @@
 >
 	<div class="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
 		<Sidebar.Trigger class="-ml-1" />
+		<Separator orientation="vertical" class="mx-2 data-[orientation=vertical]:h-4" />
+		<Breadcrumb.Root>
+			<Breadcrumb.List>
+				<Breadcrumb.Item>
+					<Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+				</Breadcrumb.Item>
+				{#if breadcrumbs.length > 0}
+					<Breadcrumb.Separator />
+					{#each breadcrumbs as { name, href, isLast }, i}
+						<Breadcrumb.Item>
+							{#if isLast}
+								<Breadcrumb.Page>{name}</Breadcrumb.Page>
+							{:else}
+								<Breadcrumb.Link {href}>{name}</Breadcrumb.Link>
+							{/if}
+						</Breadcrumb.Item>
+						{#if !isLast}
+							<Breadcrumb.Separator />
+						{/if}
+					{/each}
+				{/if}
+			</Breadcrumb.List>
+		</Breadcrumb.Root>
 		<div class="ml-auto flex items-center gap-2">
 			<Button onclick={toggleMode} variant="ghost" size="icon">
 				<IconSun
