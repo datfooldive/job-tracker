@@ -18,11 +18,13 @@
 	const pathnames = $derived(page.url.pathname.split('/').filter(Boolean));
 
 	const breadcrumbs = $derived(
-		pathnames.map((segment, i) => ({
-			name: segment.charAt(0).toUpperCase() + segment.slice(1),
-			href: '/' + pathnames.slice(0, i + 1).join('/'),
-			isLast: i === pathnames.length - 1
-		}))
+		pathnames
+			.filter((segment) => isNaN(Number(segment)))
+			.map((segment, i, filtered) => ({
+				name: segment.charAt(0).toUpperCase() + segment.slice(1),
+				href: '/' + filtered.slice(0, i + 1).join('/'),
+				isLast: i === filtered.length - 1
+			}))
 	);
 </script>
 
