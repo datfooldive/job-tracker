@@ -39,6 +39,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.13
         version: 4.1.15(vite@7.1.11(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.2))
+      '@tanstack/table-core':
+        specifier: ^8.21.3
+        version: 8.21.3
       '@types/node':
         specifier: ^22
         version: 22.18.11
@@ -69,6 +72,9 @@ importers:
       svelte-check:
         specifier: ^4.3.2
         version: 4.3.3(picomatch@4.0.3)(svelte@5.41.1)(typescript@5.9.3)
+      svelte-sonner:
+        specifier: ^1.0.5
+        version: 1.0.5(svelte@5.41.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -754,6 +760,10 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7
 
+  '@tanstack/table-core@8.21.3':
+    resolution: {integrity: sha512-ldZXEhOBb8Is7xLs01fR3YEc3DERiz5silj8tnGkFZytt1abEvl/GhUmCE0PMLaMPTa3Jk4HbKmRlHmu+gCftg==}
+    engines: {node: '>=12'}
+
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
@@ -1371,6 +1381,11 @@ packages:
     peerDependencies:
       svelte: ^5.7.0
 
+  runed@0.28.0:
+    resolution: {integrity: sha512-k2xx7RuO9hWcdd9f+8JoBeqWtYrm5CALfgpkg2YDB80ds/QE4w0qqu34A7fqiAwiBBSBQOid7TLxwxVC27ymWQ==}
+    peerDependencies:
+      svelte: ^5.7.0
+
   runed@0.35.1:
     resolution: {integrity: sha512-2F4Q/FZzbeJTFdIS/PuOoPRSm92sA2LhzTnv6FXhCoENb3huf5+fDuNOg1LNvGOouy3u/225qxmuJvcV3IZK5Q==}
     peerDependencies:
@@ -1443,6 +1458,11 @@ packages:
     peerDependencies:
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: '>=5.0.0'
+
+  svelte-sonner@1.0.5:
+    resolution: {integrity: sha512-9dpGPFqKb/QWudYqGnEz93vuY+NgCEvyNvxoCLMVGw6sDN/3oVeKV1xiEirW2E1N3vJEyj5imSBNOGltQHA7mg==}
+    peerDependencies:
+      svelte: ^5.0.0
 
   svelte-toolbelt@0.10.6:
     resolution: {integrity: sha512-YWuX+RE+CnWYx09yseAe4ZVMM7e7GRFZM6OYWpBKOb++s+SQ8RBIMMe+Bs/CznBMc0QPLjr+vDBxTAkozXsFXQ==}
@@ -2122,6 +2142,8 @@ snapshots:
       tailwindcss: 4.1.15
       vite: 7.1.11(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.2)
 
+  '@tanstack/table-core@8.21.3': {}
+
   '@types/cookie@0.6.0': {}
 
   '@types/estree@1.0.8': {}
@@ -2604,6 +2626,11 @@ snapshots:
       esm-env: 1.2.2
       svelte: 5.41.1
 
+  runed@0.28.0(svelte@5.41.1):
+    dependencies:
+      esm-env: 1.2.2
+      svelte: 5.41.1
+
   runed@0.35.1(@sveltejs/kit@2.47.2(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.41.1)(vite@7.1.11(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.41.1)(vite@7.1.11(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.41.1):
     dependencies:
       dequal: 2.0.3
@@ -2673,6 +2700,11 @@ snapshots:
       typescript: 5.9.3
     transitivePeerDependencies:
       - picomatch
+
+  svelte-sonner@1.0.5(svelte@5.41.1):
+    dependencies:
+      runed: 0.28.0(svelte@5.41.1)
+      svelte: 5.41.1
 
   svelte-toolbelt@0.10.6(@sveltejs/kit@2.47.2(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.41.1)(vite@7.1.11(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.41.1)(vite@7.1.11(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.2)))(svelte@5.41.1):
     dependencies:

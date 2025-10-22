@@ -5,18 +5,16 @@
 	import { IconLogout, IconMoon, IconSun } from '@tabler/icons-svelte';
 	import { authClient } from '$lib/client';
 	import { goto } from '$app/navigation';
-	import type { Session, User } from 'better-auth';
 	import { toggleMode } from 'mode-watcher';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import { page } from '$app/state';
+
+	const { session, user } = $derived(page.data);
 
 	const sidebar = Sidebar.useSidebar();
-
-	let { user, session }: { user: User | null; session: Session | null } = $props();
 </script>
 
-<header
-	class="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear"
->
+<header class="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear">
 	<div class="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
 		<Sidebar.Trigger class="-ml-1" />
 
@@ -38,7 +36,7 @@
 						</Avatar.Root>
 					</DropdownMenu.Trigger>
 					<DropdownMenu.Content
-						class="w-(--bits-dropdown-menu-anchor-width) min-w-56 rounded-lg"
+						class="min-w-56 rounded-lg"
 						side={sidebar.isMobile ? 'bottom' : 'right'}
 						align={sidebar.isMobile ? 'end' : 'start'}
 						sideOffset={8}
@@ -54,8 +52,8 @@
 							onclick={async () => {
 								await authClient.signOut({
 									fetchOptions: {
-										onSuccess: () => {
-											goto('/login');
+										onSuccess: async () => {
+											await goto('/login');
 										}
 									}
 								});
