@@ -17,7 +17,7 @@
 	<Sidebar.Header>
 		<Sidebar.Menu>
 			<Sidebar.MenuItem class="p-[0.48rem]">
-				<div class="flex justify-start items-center gap-2">
+				<div class="flex items-center justify-start gap-2">
 					<IconBriefcase2 class="size-6!" />
 					<span class="text-base font-medium">Job Tracker</span>
 				</div>

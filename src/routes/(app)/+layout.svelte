@@ -14,7 +14,7 @@
 </svelte:head>
 
 <ModeWatcher />
-<Toaster />
+<Toaster position="top-center" />
 <Sidebar.Provider>
 	<AppSidebar />
 	<Sidebar.Content>

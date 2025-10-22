@@ -17,6 +17,7 @@
 </script>
 
 <Dialog.Root bind:open>
+	<Dialog.Overlay />
 	<Dialog.Content>
 		<Dialog.Header>
 			<Dialog.Title>{title}</Dialog.Title>

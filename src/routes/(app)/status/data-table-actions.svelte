@@ -24,7 +24,7 @@
 	<DropdownMenu.Content>
 		<DropdownMenu.Item class="flex w-full justify-start">
 			{#snippet child({ props })}
-				<Button variant="ghost" size="icon" {...props}>
+				<Button variant="ghost" size="icon" {...props} href={`/status/edit/${row.original.id}`}>
 					<IconEdit />
 					Edit
 				</Button>
@@ -32,6 +32,7 @@
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
 			class="flex w-full justify-start"
+			variant="destructive"
 			onclick={() => {
 				selectedId.set(row.original.id);
 				openDialog.set(true);
@@ -47,32 +48,34 @@
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
 
-<ConfirmDialog
-	bind:open={$openDialog}
-	title="Confirm Delete"
-	description="Are you sure you want to delete this status? This action cannot be undone."
->
-	<form
-		action="?/delete"
-		method="post"
-		use:enhance={() => {
-			return async ({ result, update }) => {
-				if (result.type === 'success' || result.type === 'failure') {
-					const data = result.data as { success: boolean; message: string };
-					if (data.success) {
-						toast.success(data.message);
-						openDialog.set(false);
-					} else {
-						toast.error(data.message);
-					}
-				} else {
-					toast.error('Something went wrong');
-				}
-				update();
-			};
-		}}
+{#if $selectedId === row.original.id}
+	<ConfirmDialog
+		bind:open={$openDialog}
+		title="Confirm Delete"
+		description="Are you sure you want to delete this status? This action cannot be undone."
 	>
-		<input type="hidden" name="id" value={$selectedId} />
-		<Button variant="destructive" type="submit">Delete</Button>
-	</form>
-</ConfirmDialog>
+		<form
+			action="?/delete"
+			method="post"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success' || result.type === 'failure') {
+						const data = result.data as { success: boolean; message: string };
+						if (data.success) {
+							toast.success(data.message);
+							openDialog.set(false);
+						} else {
+							toast.error(data.message);
+						}
+					} else {
+						toast.error('Something went wrong');
+					}
+					update();
+				};
+			}}
+		>
+			<input type="hidden" name="id" value={$selectedId} />
+			<Button variant="destructive" type="submit">Delete</Button>
+		</form>
+	</ConfirmDialog>
+{/if}

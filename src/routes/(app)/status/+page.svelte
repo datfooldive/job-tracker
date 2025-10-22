@@ -7,12 +7,23 @@
 	import type { Table } from '@tanstack/table-core';
 	import type { Status } from '$lib/server/db/schema';
 	import DataTableBulkActions from './data-table-bulk-actions.svelte';
+	import { toast } from 'svelte-sonner';
+	import { getFlash } from 'sveltekit-flash-message/client';
+	import { page } from '$app/state';
 
 	let { data }: PageProps = $props();
+
+	const flash = getFlash(page);
+
+	$effect(() => {
+		if ($flash?.message && $flash.type === 'success') {
+			toast.success($flash.message);
+		}
+	});
 </script>
 
 {#snippet addSection()}
-	<Button size="sm">
+	<Button size="sm" href="/status/create">
 		<IconPlus />
 		<span class="hidden lg:inline">Add Status</span>
 	</Button>

@@ -24,7 +24,7 @@
 	<DropdownMenu.Content>
 		<DropdownMenu.Item class="flex w-full justify-start">
 			{#snippet child({ props })}
-				<Button variant="ghost" size="icon" {...props}>
+				<Button variant="ghost" size="icon" {...props} href={`/tags/edit/${row.original.id}`}>
 					<IconEdit />
 					Edit
 				</Button>

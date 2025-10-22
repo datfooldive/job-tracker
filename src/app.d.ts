@@ -12,6 +12,7 @@ declare global {
 		interface PageData {
 			session: Session | null;
 			user: User | null;
+			flash?: { type: 'success' | 'error'; message: string };
 		}
 		// interface PageState {}
 		// interface Platform {}
