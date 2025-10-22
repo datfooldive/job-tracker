@@ -6,14 +6,13 @@
 	import { IconPlus } from '@tabler/icons-svelte';
 	import type { Table } from '@tanstack/table-core';
 	import type { Status } from '$lib/server/db/schema';
-	import { renderComponent } from '$lib/components/ui/data-table';
 	import DataTableBulkActions from './data-table-bulk-actions.svelte';
 
 	let { data }: PageProps = $props();
 </script>
 
 {#snippet addSection()}
-	<Button variant="outline" size="sm">
+	<Button size="sm">
 		<IconPlus />
 		<span class="hidden lg:inline">Add Status</span>
 	</Button>

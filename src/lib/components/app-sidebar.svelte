@@ -8,7 +8,7 @@
 		IconTag
 	} from '@tabler/icons-svelte';
 	import type { ComponentProps } from 'svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
@@ -16,9 +16,11 @@
 <Sidebar.Root bind:ref class="border-r-0" {...restProps}>
 	<Sidebar.Header>
 		<Sidebar.Menu>
-			<Sidebar.MenuItem class="flex items-center gap-2 p-[0.48rem]">
-				<IconBriefcase2 class="size-6!" />
-				<span class="text-base font-semibold">Job Tracker</span>
+			<Sidebar.MenuItem class="p-[0.48rem]">
+				<div class="flex justify-start items-center gap-2">
+					<IconBriefcase2 class="size-6!" />
+					<span class="text-base font-medium">Job Tracker</span>
+				</div>
 			</Sidebar.MenuItem>
 		</Sidebar.Menu>
 	</Sidebar.Header>
@@ -26,7 +28,7 @@
 		<Sidebar.Group>
 			<Sidebar.GroupContent class="flex flex-col gap-2">
 				<Sidebar.Menu>
-					<Sidebar.MenuButton isActive={$page.url.pathname === '/'}>
+					<Sidebar.MenuButton isActive={page.url.pathname === '/'}>
 						{#snippet child({ props })}
 							<a href="/" {...props}>
 								<IconDashboard class="size-5!" />
@@ -36,7 +38,7 @@
 					</Sidebar.MenuButton>
 				</Sidebar.Menu>
 				<Sidebar.Menu>
-					<Sidebar.MenuButton isActive={$page.url.pathname === '/applications'}>
+					<Sidebar.MenuButton isActive={page.url.pathname === '/applications'}>
 						{#snippet child({ props })}
 							<a href="/applications" {...props}>
 								<IconBriefcase class="size-5!" />
@@ -46,7 +48,7 @@
 					</Sidebar.MenuButton>
 				</Sidebar.Menu>
 				<Sidebar.Menu>
-					<Sidebar.MenuButton isActive={$page.url.pathname === '/status'}>
+					<Sidebar.MenuButton isActive={page.url.pathname === '/status'}>
 						{#snippet child({ props })}
 							<a href="/status" {...props}>
 								<IconListDetails class="size-5!" />
@@ -56,7 +58,7 @@
 					</Sidebar.MenuButton>
 				</Sidebar.Menu>
 				<Sidebar.Menu>
-					<Sidebar.MenuButton isActive={$page.url.pathname === '/tags'}>
+					<Sidebar.MenuButton isActive={page.url.pathname === '/tags'}>
 						{#snippet child({ props })}
 							<a href="/tags" {...props}>
 								<IconTag class="size-5!" />

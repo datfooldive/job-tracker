@@ -6,7 +6,7 @@
 	import SiteHeader from '$lib/components/site-header.svelte';
 	import { ModeWatcher } from 'mode-watcher';
 
-	let { children, data } = $props();
+	let { children } = $props();
 </script>
 
 <svelte:head>

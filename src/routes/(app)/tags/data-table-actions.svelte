@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { Row } from '@tanstack/table-core';
-	import type { Status } from '$lib/server/db/schema';
+	import type { Tag } from '$lib/server/db/schema';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
@@ -9,7 +9,7 @@
 	import { toast } from 'svelte-sonner';
 	import ConfirmDialog from '$lib/components/confirm-dialog.svelte';
 
-	const { row } = $props<{ row: Row<Status> }>();
+	const { row } = $props<{ row: Row<Tag> }>();
 </script>
 
 <DropdownMenu.Root>

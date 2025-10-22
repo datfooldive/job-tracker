@@ -4,7 +4,6 @@
 	import { IconChevronsLeft, IconChevronsRight } from '@tabler/icons-svelte';
 	import type { ComponentProps } from 'svelte';
 	import { useSidebar } from './context.svelte.js';
-	import { fade } from 'svelte/transition';
 
 	let {
 		ref = $bindable(null),
@@ -16,6 +15,8 @@
 	} = $props();
 
 	const sidebar = useSidebar();
+
+	const isOpen = $derived(sidebar.isMobile ? sidebar.openMobile : sidebar.open);
 </script>
 
 <Button
@@ -35,13 +36,13 @@
 		<IconChevronsLeft
 			class={cn(
 				'absolute size-5 transition-opacity duration-300',
-				(sidebar.isMobile ? sidebar.openMobile : sidebar.open) ? 'opacity-100' : 'opacity-0'
+				isOpen ? 'opacity-100' : 'opacity-0'
 			)}
 		/>
 		<IconChevronsRight
 			class={cn(
 				'absolute size-5 transition-opacity duration-300',
-				(sidebar.isMobile ? sidebar.openMobile : sidebar.open) ? 'opacity-0' : 'opacity-100'
+				isOpen ? 'opacity-0' : 'opacity-100'
 			)}
 		/>
 	</div>

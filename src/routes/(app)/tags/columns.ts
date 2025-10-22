@@ -1,10 +1,10 @@
-import type { Status } from '$lib/server/db/schema';
+import type { Tag } from '$lib/server/db/schema';
 import type { ColumnDef } from '@tanstack/table-core';
 import DataTableCheckbox from '$lib/components/ui/data-table/data-table-checkbox.svelte';
 import { renderComponent } from '$lib/components/ui/data-table';
 import DatatableActions from './data-table-actions.svelte';
 
-export const columns: ColumnDef<Status>[] = [
+export const columns: ColumnDef<Tag>[] = [
 	{
 		id: 'select',
 		header: ({ table }) =>

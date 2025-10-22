@@ -81,6 +81,8 @@ export const tag = mysqlTable('tag', {
 	name: varchar('name', { length: 255 }).notNull().unique()
 });
 
+export type Tag = typeof tag.$inferSelect;
+
 export const application = mysqlTable('application', {
 	id: int('id').primaryKey().autoincrement(),
 	title: varchar('title', { length: 255 }).notNull(),
