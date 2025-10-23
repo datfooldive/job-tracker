@@ -9,7 +9,11 @@
 	import { toast } from 'svelte-sonner';
 	import ConfirmDialog from '$lib/components/confirm-dialog.svelte';
 
-	const { row } = $props<{ row: Row<Status> }>();
+	type StatusWithCount = Status & {
+		applicationCount: number;
+	};
+
+	const { row } = $props<{ row: Row<StatusWithCount> }>();
 </script>
 
 <DropdownMenu.Root>

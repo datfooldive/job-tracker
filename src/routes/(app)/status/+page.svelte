@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageProps } from '../status/$types';
+	import type { PageProps } from './$types';
 	import DataTable from '$lib/components/data-table.svelte';
 	import { columns } from './columns';
 	import Button from '$lib/components/ui/button/button.svelte';

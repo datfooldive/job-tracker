@@ -1,14 +1,13 @@
-import type { Tag } from '$lib/server/db/schema';
+import type { ApplicationWithRelations } from '$lib/server/db/schema';
 import type { ColumnDef } from '@tanstack/table-core';
 import DataTableCheckbox from '$lib/components/ui/data-table/data-table-checkbox.svelte';
 import { renderComponent } from '$lib/components/ui/data-table';
 import DatatableActions from './data-table-actions.svelte';
+import { format } from 'date-fns';
+import DataTableStatusBadge from '$lib/components/data-table-status-badge.svelte';
+import DataTableTagsBadge from '$lib/components/data-table-tags-badge.svelte';
 
-type TagWithCount = Tag & {
-	applicationCount: number;
-};
-
-export const columns: ColumnDef<TagWithCount>[] = [
+export const columns: ColumnDef<ApplicationWithRelations>[] = [
 	{
 		id: 'select',
 		header: ({ table }) =>
@@ -27,19 +26,40 @@ export const columns: ColumnDef<TagWithCount>[] = [
 		enableHiding: false
 	},
 	{
-		accessorKey: 'name',
-		header: 'Name',
-		size: 500,
+		accessorKey: 'title',
+		header: 'Title',
+		size: 200,
 		enableSorting: true,
 		enableHiding: true
 	},
 	{
-		accessorKey: 'applicationCount',
-		header: 'Applications',
-		cell: ({ row }) => row.original.applicationCount,
-		size: 100,
+		accessorKey: 'company',
+		header: 'Company',
+		size: 150,
 		enableSorting: true,
 		enableHiding: true
+	},
+	{
+		accessorKey: 'status',
+		header: 'Status',
+		cell: ({ row }) => renderComponent(DataTableStatusBadge, { status: row.original.status }),
+		size: 120,
+		enableSorting: true,
+		enableHiding: true
+	},
+	{
+		accessorKey: 'tags',
+		header: 'Tags',
+		cell: ({ row }) => renderComponent(DataTableTagsBadge, { tags: row.original.applicationTags }),
+		size: 150,
+		enableSorting: false,
+		enableHiding: true
+	},
+	{
+		accessorKey: 'appliedAt',
+		header: 'Applied At',
+		cell: ({ row }) => format(row.original.appliedAt, 'MMMM dd, yyyy'),
+		size: 120
 	},
 	{
 		accessorKey: 'action',

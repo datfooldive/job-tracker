@@ -91,7 +91,7 @@ export const application = mysqlTable('application', {
 	statusId: int('status_id')
 		.notNull()
 		.references(() => status.id),
-	appliedAt: timestamp('applied_at'),
+	appliedAt: timestamp('applied_at').notNull(),
 	source: varchar('source', { length: 255 }),
 	location: varchar('location', { length: 255 }),
 	salary: varchar('salary', { length: 255 }),
@@ -100,6 +100,14 @@ export const application = mysqlTable('application', {
 	createdAt: timestamp('created_at').notNull().defaultNow(),
 	updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow()
 });
+
+export type Application = typeof application.$inferSelect;
+export type ApplicationWithRelations = Application & {
+	status: Status;
+	applicationTags: Array<{
+		tag: Tag;
+	}>;
+};
 
 export const applicationtag = mysqlTable(
 	'application_tag',

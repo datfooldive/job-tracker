@@ -3,8 +3,13 @@ import type { ColumnDef } from '@tanstack/table-core';
 import DataTableCheckbox from '$lib/components/ui/data-table/data-table-checkbox.svelte';
 import { renderComponent } from '$lib/components/ui/data-table';
 import DatatableActions from './data-table-actions.svelte';
+import { Badge } from '$lib/components/ui/badge';
 
-export const columns: ColumnDef<Status>[] = [
+type StatusWithCount = Status & {
+	applicationCount: number;
+};
+
+export const columns: ColumnDef<StatusWithCount>[] = [
 	{
 		id: 'select',
 		header: ({ table }) =>
@@ -26,6 +31,14 @@ export const columns: ColumnDef<Status>[] = [
 		accessorKey: 'name',
 		header: 'Name',
 		size: 500,
+		enableSorting: true,
+		enableHiding: true
+	},
+	{
+		accessorKey: 'applicationCount',
+		header: 'Applications',
+		cell: ({ row }) => row.original.applicationCount,
+		size: 100,
 		enableSorting: true,
 		enableHiding: true
 	},

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { Row } from '@tanstack/table-core';
-	import type { Tag } from '$lib/server/db/schema';
+	import type { ApplicationWithRelations } from '$lib/server/db/schema';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { IconEdit, IconDotsVertical, IconTrash } from '@tabler/icons-svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
@@ -9,11 +9,7 @@
 	import { toast } from 'svelte-sonner';
 	import ConfirmDialog from '$lib/components/confirm-dialog.svelte';
 
-	type TagWithCount = Tag & {
-		applicationCount: number;
-	};
-
-	const { row } = $props<{ row: Row<TagWithCount> }>();
+	const { row } = $props<{ row: Row<ApplicationWithRelations> }>();
 </script>
 
 <DropdownMenu.Root>
@@ -28,7 +24,7 @@
 	<DropdownMenu.Content>
 		<DropdownMenu.Item class="flex w-full justify-start">
 			{#snippet child({ props })}
-				<Button variant="ghost" size="icon" {...props} href={`/tags/edit/${row.original.id}`}>
+				<Button variant="ghost" size="icon" {...props} href={`/status/edit/${row.original.id}`}>
 					<IconEdit />
 					Edit
 				</Button>
@@ -36,6 +32,7 @@
 		</DropdownMenu.Item>
 		<DropdownMenu.Item
 			class="flex w-full justify-start"
+			variant="destructive"
 			onclick={() => {
 				selectedId.set(row.original.id);
 				openDialog.set(true);
@@ -51,32 +48,34 @@
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
 
-<ConfirmDialog
-	bind:open={$openDialog}
-	title="Confirm Delete"
-	description="Are you sure you want to delete this status? This action cannot be undone."
->
-	<form
-		action="?/delete"
-		method="post"
-		use:enhance={() => {
-			return async ({ result, update }) => {
-				if (result.type === 'success' || result.type === 'failure') {
-					const data = result.data as { success: boolean; message: string };
-					if (data.success) {
-						toast.success(data.message);
-						openDialog.set(false);
-					} else {
-						toast.error(data.message);
-					}
-				} else {
-					toast.error('Something went wrong');
-				}
-				update();
-			};
-		}}
+{#if $selectedId === row.original.id}
+	<ConfirmDialog
+		bind:open={$openDialog}
+		title="Confirm Delete"
+		description="Are you sure you want to delete this status? This action cannot be undone."
 	>
-		<input type="hidden" name="id" value={$selectedId} />
-		<Button variant="destructive" type="submit">Delete</Button>
-	</form>
-</ConfirmDialog>
+		<form
+			action="?/delete"
+			method="post"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success' || result.type === 'failure') {
+						const data = result.data as { success: boolean; message: string };
+						if (data.success) {
+							toast.success(data.message);
+							openDialog.set(false);
+						} else {
+							toast.error(data.message);
+						}
+					} else {
+						toast.error('Something went wrong');
+					}
+					update();
+				};
+			}}
+		>
+			<input type="hidden" name="id" value={$selectedId} />
+			<Button variant="destructive" type="submit">Delete</Button>
+		</form>
+	</ConfirmDialog>
+{/if}
